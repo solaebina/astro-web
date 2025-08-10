@@ -2,29 +2,91 @@
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import ArrowCard from "@components/ArrowCard.astro";
+import ListItem from "@components/ListItem.astro";
 import { PROJECTS } from "@consts";
 
-const projects = (await getCollection("projects"))
+const allProjects = (await getCollection("projects"))
   .filter(project => !project.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get projects by category
+const marketingProjects = (await getCollection("projects"))
+  .filter(project => !project.data.draft && project.data.categories?.includes("marketing"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const dataAIProjects = (await getCollection("projects"))
+  .filter(project => !project.data.draft && project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai")))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <Container>
     <div class="space-y-10">
-      <div class="animate font-semibold text-black dark:text-white">
-        Projects
+      <!-- Header with filters on the same line -->
+      <div class="animate flex items-center justify-between">
+        <div class="font-semibold text-black dark:text-white">
+          Projects
+        </div>
+        <div class="flex gap-4">
+          <button id="marketing-btn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+            Marketing
+          </button>
+          <button id="data-ai-btn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+            Data & AI
+          </button>
+        </div>
       </div>
-      <ul class="animate flex flex-col gap-4">
-        {
-          projects.map((project) => (
-            <li>
-              <ArrowCard entry={project}/>
-            </li>
-          ))
-        }
+
+      <!-- Marketing Projects -->
+      <ul id="marketing-projects" class="animate space-y-2 group">
+        {marketingProjects.map(project => (
+          <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
+            <ListItem entry={project} />
+          </li>
+        ))}
+      </ul>
+
+      <!-- Data & AI Projects -->
+      <ul id="data-ai-projects" class="animate space-y-2 group hidden">
+        {dataAIProjects.map(project => (
+          <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
+            <ListItem entry={project} />
+          </li>
+        ))}
       </ul>
     </div>
   </Container>
 </PageLayout>
+
+<script>
+  // Filter functionality
+  const marketingBtn = document.getElementById('marketing-btn');
+  const dataAIBtn = document.getElementById('data-ai-btn');
+  const marketingProjects = document.getElementById('marketing-projects');
+  const dataAIProjects = document.getElementById('data-ai-projects');
+
+  function showMarketing() {
+    marketingProjects?.classList.remove('hidden');
+    dataAIProjects?.classList.add('hidden');
+    marketingBtn?.classList.add('font-bold', 'underline');
+    marketingBtn?.classList.remove('font-medium');
+    dataAIBtn?.classList.remove('font-bold', 'underline');
+    dataAIBtn?.classList.add('font-medium');
+  }
+
+  function showDataAI() {
+    dataAIProjects?.classList.remove('hidden');
+    marketingProjects?.classList.add('hidden');
+    dataAIBtn?.classList.add('font-bold', 'underline');
+    dataAIBtn?.classList.remove('font-medium');
+    marketingBtn?.classList.remove('font-bold', 'underline');
+    marketingBtn?.classList.add('font-medium');
+  }
+
+  // Set initial state (marketing active by default)
+  showMarketing();
+
+  // Add event listeners
+  marketingBtn?.addEventListener('click', showMarketing);
+  dataAIBtn?.addEventListener('click', showDataAI);
+</script>

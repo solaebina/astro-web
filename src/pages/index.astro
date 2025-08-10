@@ -2,40 +2,56 @@
 import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import ArrowCard from "@components/ArrowCard.astro";
+import ListItem from "@components/ListItem.astro";
 import Link from "@components/Link.astro";
-import { dateRange } from "@lib/utils";
 import { SITE, HOME, SOCIALS } from "@consts";
 
-const blog = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0,SITE.NUM_POSTS_ON_HOMEPAGE);
+// Helper function to format date
+function formatDate(date: Date): string {
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+}
 
-const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0,SITE.NUM_PROJECTS_ON_HOMEPAGE);
+// Helper function to get filtered and sorted projects
+function getFilteredProjects(collection: any[], limit: number) {
+  return collection
+    .filter(item => !item.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, limit);
+}
 
-const allwork = (await getCollection("work"))
-  .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf())
-  .slice(0,SITE.NUM_WORKS_ON_HOMEPAGE);
+// Get all collections
+const allProjects = await getCollection("projects");
+const allBlogPosts = await getCollection("blog");
 
-const work = await Promise.all(
-  allwork.map(async (item) => {
-    const { Content } = await item.render();
-    return { ...item, Content };
-  })
+// Get filtered projects
+const recentProjects = getFilteredProjects(allProjects, SITE.NUM_PROJECTS_ON_HOMEPAGE);
+const recentBlogPosts = getFilteredProjects(allBlogPosts, SITE.NUM_POSTS_ON_HOMEPAGE);
+
+// Get featured projects by category
+const marketingProjects = getFilteredProjects(
+  allProjects.filter(project => project.data.image && project.data.categories?.includes("marketing")),
+  2
 );
 
+const dataAIProjects = getFilteredProjects(
+  allProjects.filter(project => 
+    project.data.image && 
+    project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai"))
+  ),
+  2
+);
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <h4 class="animate font-semibold text-black dark:text-white">
-      Hi, I'm Nano <span class="text-xl">👋🏻</span> 
+      Hi, I'm Sola <span class="text-xl">👋🏻</span> 
     </h4>
+    
     <div class="space-y-16">
+      <!-- Introduction Section -->
       <section>
         <article class="space-y-4">
           <p class="animate">
@@ -63,53 +79,109 @@ const work = await Promise.all(
         </article>
       </section>
 
+      <!-- Featured Projects Section -->
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-black dark:text-white">
-            Latest posts
+          <h5 class="text-lg font-semibold text-black dark:text-white">
+            Featured Projects
           </h5>
-          <Link href="/blog">
-            See all posts
-          </Link>
+          <div class="flex gap-4">
+            <button 
+              id="marketing-btn" 
+              class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              Marketing
+            </button>
+            <button 
+              id="data-ai-btn" 
+              class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              Data & AI
+            </button>
+          </div>
         </div>
-        <ul class="flex flex-col gap-4">
-          {blog.map(post => (
-            <li>
-              <ArrowCard entry={post} />
-            </li>
+        
+        <!-- Project Cards Container -->
+        <div id="marketing-projects" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {marketingProjects.map(project => (
+            <div class="w-full">
+              <a 
+                href={`/projects/${project.slug}`} 
+                class="group block p-6 -ml-6 -mr-6 rounded-xl transition-all duration-300"
+              >
+                <div class="space-y-4">
+                  <!-- Image at the top -->
+                  {project.data.image && (
+                    <div class="overflow-hidden rounded-lg">
+                      <img 
+                        src={project.data.image} 
+                        alt={`${project.data.title} preview`}
+                        class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  
+                  <!-- Title and Date -->
+                  <div class="space-y-2">
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white transition-colors duration-200 group-hover:text-black dark:group-hover:text-white">
+                      {project.data.title}
+                    </h3>
+                    <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                      {formatDate(project.data.date)}
+                    </time>
+                  </div>
+                  
+                  <!-- Description -->
+                  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
+                    {project.data.description}
+                  </p>
+                </div>
+              </a>
+            </div>
           ))}
-        </ul>
+        </div>
+
+        <div id="data-ai-projects" class="grid grid-cols-2 gap-8 hidden">
+          {dataAIProjects.map(project => (
+            <div class="w-full">
+              <a 
+                href={`/projects/${project.slug}`} 
+                class="group block p-6 -ml-6 -mr-6 rounded-xl transition-all duration-300"
+              >
+                <div class="space-y-4">
+                  <!-- Image at the top -->
+                  {project.data.image && (
+                    <div class="overflow-hidden rounded-lg">
+                      <img 
+                        src={project.data.image} 
+                        alt={`${project.data.title} preview`}
+                        class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  
+                  <!-- Title and Date -->
+                  <div class="space-y-2">
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white transition-colors duration-200 group-hover:text-black dark:group-hover:text-white">
+                      {project.data.title}
+                    </h3>
+                    <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                      {formatDate(project.data.date)}
+                    </time>
+                  </div>
+                  
+                  <!-- Description -->
+                  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
+                    {project.data.description}
+                  </p>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <section class="animate space-y-6">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-black dark:text-white">
-            Work Experience
-          </h5>
-          <Link href="/work">
-            See all work
-          </Link>
-        </div>
-        <ul class="flex flex-col space-y-4">
-          {work.map(entry => (
-            <li>
-              <div class="text-sm opacity-75">
-                {dateRange(entry.data.dateStart, entry.data.dateEnd)}
-              </div>
-              <div class="font-semibold text-black dark:text-white">
-                {entry.data.company}
-              </div>
-              <div class="text-sm opacity-75">
-                {entry.data.role}
-              </div>
-              <article>
-                <entry.Content />
-              </article>
-            </li>
-          ))}
-        </ul>
-      </section>
-
+      <!-- Recent Projects Section -->
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
           <h5 class="font-semibold text-black dark:text-white">
@@ -119,15 +191,25 @@ const work = await Promise.all(
             See all projects
           </Link>
         </div>
-        <ul class="flex flex-col gap-4">
-          {projects.map(project => (
-            <li>
-              <ArrowCard entry={project} />
+        
+        <ul id="marketing-recent" class="space-y-2 group">
+          {marketingProjects.map(project => (
+            <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
+              <ListItem entry={project} />
+            </li>
+          ))}
+        </ul>
+
+        <ul id="data-ai-recent" class="space-y-2 group hidden">
+          {dataAIProjects.map(project => (
+            <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
+              <ListItem entry={project} />
             </li>
           ))}
         </ul>
       </section>
 
+      <!-- Connect Section -->
       <section class="animate space-y-4">
         <h5 class="font-semibold text-black dark:text-white">
           Let's Connect
@@ -157,3 +239,81 @@ const work = await Promise.all(
     </div>
   </Container>
 </PageLayout>
+
+<script>
+  // Project filter functionality
+  class ProjectFilter {
+    private elements: {
+      marketingBtn: HTMLElement | null;
+      dataAIBtn: HTMLElement | null;
+      marketingProjects: HTMLElement | null;
+      dataAIProjects: HTMLElement | null;
+      marketingRecent: HTMLElement | null;
+      dataAIRecent: HTMLElement | null;
+    };
+
+    constructor() {
+      this.elements = {
+        marketingBtn: document.getElementById('marketing-btn'),
+        dataAIBtn: document.getElementById('data-ai-btn'),
+        marketingProjects: document.getElementById('marketing-projects'),
+        dataAIProjects: document.getElementById('data-ai-projects'),
+        marketingRecent: document.getElementById('marketing-recent'),
+        dataAIRecent: document.getElementById('data-ai-recent')
+      };
+      
+      this.init();
+    }
+
+    init(): void {
+      this.setInitialState();
+      this.bindEvents();
+    }
+
+    setInitialState(): void {
+      this.showCategory('marketing');
+    }
+
+    bindEvents(): void {
+      this.elements.marketingBtn?.addEventListener('click', () => this.showCategory('marketing'));
+      this.elements.dataAIBtn?.addEventListener('click', () => this.showCategory('data-ai'));
+    }
+
+    showCategory(category: string): void {
+      const isMarketing = category === 'marketing';
+      
+      // Toggle project visibility
+      this.elements.marketingProjects?.classList.toggle('hidden', !isMarketing);
+      this.elements.dataAIProjects?.classList.toggle('hidden', isMarketing);
+      
+      // Toggle recent projects visibility
+      this.elements.marketingRecent?.classList.toggle('hidden', !isMarketing);
+      this.elements.dataAIRecent?.classList.toggle('hidden', isMarketing);
+      
+      // Update button styles
+      this.updateButtonStyles(isMarketing);
+    }
+
+    updateButtonStyles(isMarketing: boolean): void {
+      const marketingBtn = this.elements.marketingBtn;
+      const dataAIBtn = this.elements.dataAIBtn;
+      
+      if (isMarketing) {
+        marketingBtn?.classList.add('font-bold', 'underline');
+        marketingBtn?.classList.remove('font-medium');
+        dataAIBtn?.classList.remove('font-bold', 'underline');
+        dataAIBtn?.classList.add('font-medium');
+      } else {
+        dataAIBtn?.classList.add('font-bold', 'underline');
+        dataAIBtn?.classList.remove('font-medium');
+        marketingBtn?.classList.remove('font-bold', 'underline');
+        marketingBtn?.classList.add('font-medium');
+      }
+    }
+  }
+
+  // Initialize the filter when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new ProjectFilter();
+  });
+</script>

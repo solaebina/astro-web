@@ -28,7 +28,9 @@ const projects = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().optional(),
     demoURL: z.string().optional(),
-    repoURL: z.string().optional()
+    repoURL: z.string().optional(),
+    categories: z.array(z.enum(["marketing", "data-ai", "web", "mobile", "other"])).optional(),
+    image: z.string().optional()
   }),
 });
 

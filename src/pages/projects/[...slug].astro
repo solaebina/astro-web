@@ -21,13 +21,13 @@ type Props = CollectionEntry<"projects">;
 const project = Astro.props;
 const { Content } = await project.render();
 
-// Determine which filter should be active based on the project's categories
-let filterParam = "";
+// Determine which category page to link back to
+let backLink = "/projects";
 if (project.data.categories) {
   if (project.data.categories.some(cat => cat.includes("marketing"))) {
-    filterParam = "?filter=marketing";
+    backLink = "/marketing";
   } else if (project.data.categories.some(cat => cat.includes("data") || cat.includes("ai"))) {
-    filterParam = "?filter=data-ai";
+    backLink = "/data";
   }
 }
 ---
@@ -35,7 +35,7 @@ if (project.data.categories) {
 <PageLayout title={project.data.title} description={project.data.description}>
   <Container>
     <div class="animate">
-      <BackToPrev href={`/projects${filterParam}`}>
+      <BackToPrev href={backLink}>
         Back to projects
       </BackToPrev>
     </div>

@@ -1,110 +1,56 @@
 ---
-import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
-import ListItem from "@components/ListItem.astro";
 import { PROJECTS } from "@consts";
-
-const allProjects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-// Get projects by category
-const marketingProjects = (await getCollection("projects"))
-  .filter(project => !project.data.draft && project.data.categories?.includes("marketing"))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const dataAIProjects = (await getCollection("projects"))
-  .filter(project => !project.data.draft && project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai")))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-// Get the filter from URL query parameter
-const url = new URL(Astro.request.url);
-const filterParam = url.searchParams.get('filter');
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <Container>
     <div class="space-y-10">
-      <!-- Header with filters on the same line -->
-      <div class="animate flex items-center justify-between">
-        <div class="font-semibold text-black dark:text-white">
+      <!-- Header -->
+      <div class="animate">
+        <h1 class="font-semibold text-black dark:text-white text-2xl mb-4">
           Projects
-        </div>
-        <div class="flex gap-4">
-          <button id="marketing-btn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
-            Marketing
-          </button>
-          <button id="data-ai-btn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
-            Data & AI
-          </button>
-        </div>
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400">
+          Browse projects by category
+        </p>
       </div>
 
-      <!-- Marketing Projects -->
-      <ul id="marketing-projects" class="animate space-y-2 group">
-        {marketingProjects.map(project => (
-          <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
-            <ListItem entry={project} />
-          </li>
-        ))}
-      </ul>
+      <!-- Project Categories -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Marketing Projects -->
+        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200">
+          <h2 class="text-xl font-semibold text-black dark:text-white mb-3">
+            Marketing
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Marketing automation, campaigns, and digital marketing projects
+          </p>
+          <a 
+            href="/marketing" 
+            class="inline-block px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200"
+          >
+            View Marketing Projects
+          </a>
+        </div>
 
-      <!-- Data & AI Projects -->
-      <ul id="data-ai-projects" class="animate space-y-2 group hidden">
-        {dataAIProjects.map(project => (
-          <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
-            <ListItem entry={project} />
-          </li>
-        ))}
-      </ul>
+        <!-- Data & AI Projects -->
+        <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-200">
+          <h2 class="text-xl font-semibold text-black dark:text-white mb-3">
+            Data & AI
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Machine learning, data analysis, and artificial intelligence projects
+          </p>
+          <a 
+            href="/data" 
+            class="inline-block px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors duration-200"
+          >
+            View Data & AI Projects
+          </a>
+        </div>
+      </div>
     </div>
   </Container>
 </PageLayout>
-
-<script define:vars={{ filterParam }}>
-  // Filter functionality
-  const marketingBtn = document.getElementById('marketing-btn');
-  const dataAIBtn = document.getElementById('data-ai-btn');
-  const marketingProjects = document.getElementById('marketing-projects');
-  const dataAIProjects = document.getElementById('data-ai-projects');
-
-  function showMarketing() {
-    marketingProjects?.classList.remove('hidden');
-    dataAIProjects?.classList.add('hidden');
-    marketingBtn?.classList.add('font-bold', 'underline');
-    marketingBtn?.classList.remove('font-medium');
-    dataAIBtn?.classList.remove('font-bold', 'underline');
-    dataAIBtn?.classList.add('font-medium');
-    
-    // Update URL without page reload
-    const url = new URL(window.location);
-    url.searchParams.set('filter', 'marketing');
-    window.history.replaceState({}, '', url);
-  }
-
-  function showDataAI() {
-    dataAIProjects?.classList.remove('hidden');
-    marketingProjects?.classList.add('hidden');
-    dataAIBtn?.classList.add('font-bold', 'underline');
-    dataAIBtn?.classList.remove('font-medium');
-    marketingBtn?.classList.remove('font-bold', 'underline');
-    marketingBtn?.classList.add('font-medium');
-    
-    // Update URL without page reload
-    const url = new URL(window.location);
-    url.searchParams.set('filter', 'data-ai');
-    window.history.replaceState({}, '', url);
-  }
-
-  // Set initial state based on URL parameter
-  if (filterParam === 'marketing') {
-    showMarketing();
-  } else {
-    showDataAI(); // Default to data-ai
-  }
-
-  // Add event listeners
-  marketingBtn?.addEventListener('click', showMarketing);
-  dataAIBtn?.addEventListener('click', showDataAI);
-</script>

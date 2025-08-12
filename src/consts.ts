@@ -27,6 +27,16 @@ export const PROJECTS: Metadata = {
   DESCRIPTION: "A collection of my projects, with links to repositories and demos.",
 };
 
+export const MARKETING: Metadata = {
+  TITLE: "Marketing Projects",
+  DESCRIPTION: "Marketing automation, campaigns, and digital marketing projects.",
+};
+
+export const DATA_AI: Metadata = {
+  TITLE: "Data & AI Projects",
+  DESCRIPTION: "Machine learning, data analysis, and artificial intelligence projects.",
+};
+
 export const PLAYGROUND: Metadata = {
   TITLE: "Playground",
   DESCRIPTION: "Experimental projects and creative explorations.",

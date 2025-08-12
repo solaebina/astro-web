@@ -17,6 +17,10 @@ const marketingProjects = (await getCollection("projects"))
 const dataAIProjects = (await getCollection("projects"))
   .filter(project => !project.data.draft && project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai")))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get the filter from URL query parameter
+const url = new URL(Astro.request.url);
+const filterParam = url.searchParams.get('filter');
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
@@ -58,7 +62,7 @@ const dataAIProjects = (await getCollection("projects"))
   </Container>
 </PageLayout>
 
-<script>
+<script define:vars={{ filterParam }}>
   // Filter functionality
   const marketingBtn = document.getElementById('marketing-btn');
   const dataAIBtn = document.getElementById('data-ai-btn');
@@ -72,6 +76,11 @@ const dataAIProjects = (await getCollection("projects"))
     marketingBtn?.classList.remove('font-medium');
     dataAIBtn?.classList.remove('font-bold', 'underline');
     dataAIBtn?.classList.add('font-medium');
+    
+    // Update URL without page reload
+    const url = new URL(window.location);
+    url.searchParams.set('filter', 'marketing');
+    window.history.replaceState({}, '', url);
   }
 
   function showDataAI() {
@@ -81,10 +90,19 @@ const dataAIProjects = (await getCollection("projects"))
     dataAIBtn?.classList.remove('font-medium');
     marketingBtn?.classList.remove('font-bold', 'underline');
     marketingBtn?.classList.add('font-medium');
+    
+    // Update URL without page reload
+    const url = new URL(window.location);
+    url.searchParams.set('filter', 'data-ai');
+    window.history.replaceState({}, '', url);
   }
 
-  // Set initial state (marketing active by default)
-  showMarketing();
+  // Set initial state based on URL parameter
+  if (filterParam === 'marketing') {
+    showMarketing();
+  } else {
+    showDataAI(); // Default to data-ai
+  }
 
   // Add event listeners
   marketingBtn?.addEventListener('click', showMarketing);

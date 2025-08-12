@@ -20,12 +20,22 @@ type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
 const { Content } = await project.render();
+
+// Determine which filter should be active based on the project's categories
+let filterParam = "";
+if (project.data.categories) {
+  if (project.data.categories.some(cat => cat.includes("marketing"))) {
+    filterParam = "?filter=marketing";
+  } else if (project.data.categories.some(cat => cat.includes("data") || cat.includes("ai"))) {
+    filterParam = "?filter=data-ai";
+  }
+}
 ---
 
 <PageLayout title={project.data.title} description={project.data.description}>
   <Container>
     <div class="animate">
-      <BackToPrev href="/projects">
+      <BackToPrev href={`/projects${filterParam}`}>
         Back to projects
       </BackToPrev>
     </div>
@@ -54,7 +64,7 @@ const { Content } = await project.render();
           )}
           {project.data.repoURL && (
             <Link href={project.data.repoURL} external>
-              repo
+              Github Repo
             </Link>
           )}
         </nav>

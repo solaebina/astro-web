@@ -1,0 +1,95 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import Container from "@components/Container.astro";
+import { PLAYGROUND } from "@consts";
+---
+
+<PageLayout title={PLAYGROUND.TITLE} description={PLAYGROUND.DESCRIPTION}>
+  <Container>
+    <div class="space-y-10">
+      <div class="animate font-semibold text-black dark:text-white">
+        Playground
+      </div>
+      <div class="animate space-y-6">
+        <p class="text-gray-600 dark:text-gray-400">
+          A log of random thoughts, ideas, and experiments. Nothing polished, just raw notes and explorations.
+        </p>
+        
+        <!-- Log Entries -->
+        <div class="space-y-6">
+          <h3 class="text-lg font-semibold text-black dark:text-white">Log Entries</h3>
+          
+          <!-- Log Entry 1 -->
+          <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-4">
+            <div class="flex items-center gap-3 mb-2">
+              <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">March 15, 2024</time>
+              <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">AI</span>
+            </div>
+            <h4 class="font-medium text-black dark:text-white mb-2">Prompt Engineering Experiments</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Tried different prompt structures for code generation. Chain-of-thought prompting seems to work better for complex logic. 
+              Need to experiment with few-shot examples and temperature settings. Also noticed that being more specific about the 
+              output format improves consistency.
+            </p>
+          </div>
+
+          <!-- Log Entry 2 -->
+          <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-4">
+            <div class="flex items-center gap-3 mb-2">
+              <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">March 12, 2024</time>
+              <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">Data Science</span>
+            </div>
+            <h4 class="font-medium text-black dark:text-white mb-2">New Visualization Techniques</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Explored D3.js for interactive data visualizations. The learning curve is steep but the flexibility is worth it. 
+              Created a simple scatter plot with zoom and pan functionality. Next steps: add brushing for selection and 
+              implement linked views across multiple charts.
+            </p>
+          </div>
+
+          <!-- Log Entry 3 -->
+          <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-4">
+            <div class="flex items-center gap-3 mb-2">
+              <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">March 8, 2024</time>
+              <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">Web Dev</span>
+            </div>
+            <h4 class="font-medium text-black dark:text-white mb-2">Component Library Architecture</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Started designing a component library system. Key insights: need consistent spacing scale, color palette, and 
+              typography system. Considering using CSS custom properties for theming. Also thinking about how to handle 
+              component variants and composition patterns.
+            </p>
+          </div>
+
+          <!-- Log Entry 4 -->
+          <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-4">
+            <div class="flex items-center gap-3 mb-2">
+              <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">March 5, 2024</time>
+              <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">Random</span>
+            </div>
+            <h4 class="font-medium text-black dark:text-white mb-2">Future Project Ideas</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Brainstormed some project ideas: a personal knowledge management system, a habit tracking app with ML insights, 
+              and a tool for analyzing GitHub repositories. The knowledge management system seems most interesting - could 
+              integrate with Obsidian and add AI-powered search and connections.
+            </p>
+          </div>
+
+          <!-- Log Entry 5 -->
+          <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-6 py-4">
+            <div class="flex items-center gap-3 mb-2">
+              <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">March 1, 2024</time>
+              <span class="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">Learning</span>
+            </div>
+            <h4 class="font-medium text-black dark:text-white mb-2">Rust Learning Path</h4>
+            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Started learning Rust basics. The ownership system is fascinating but challenging. Working through the Book 
+              and doing small exercises. Want to build a CLI tool or web service to practice. Also interested in 
+              WebAssembly integration for performance-critical web applications.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</PageLayout>

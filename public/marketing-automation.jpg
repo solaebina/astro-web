@@ -1,0 +1,10 @@
+<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#fef3c7"/>
+  <rect x="50" y="50" width="700" height="350" rx="20" fill="#059669"/>
+  <rect x="100" y="100" width="150" height="80" rx="10" fill="#fbbf24"/>
+  <rect x="300" y="100" width="150" height="80" rx="10" fill="#f97316"/>
+  <rect x="500" y="100" width="150" height="80" rx="10" fill="#ec4899"/>
+  <rect x="100" y="220" width="550" height="120" rx="10" fill="#1e293b"/>
+  <text x="400" y="280" text-anchor="middle" fill="white" font-family="Arial" font-size="24">Marketing Automation</text>
+  <text x="400" y="310" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="16">Campaign Management & Analytics</text>
+</svg>

@@ -1,8 +1,6 @@
 ---
-import { getCollection } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
-import ListItem from "@components/ListItem.astro";
 import Link from "@components/Link.astro";
 import { SITE, HOME, SOCIALS } from "@consts";
 
@@ -13,180 +11,32 @@ function formatDate(date: Date): string {
   return `${month} ${year}`;
 }
 
-// Helper function to get filtered and sorted projects
-function getFilteredProjects<T extends { data: { draft?: boolean; date: Date } }>(collection: T[], limit: number) {
-  return collection
-    .filter((item) => !item.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-    .slice(0, limit);
-}
-
-// Get all collections
-const allProjects = await getCollection("projects");
-
-// Get featured projects by category
-const marketingProjects = getFilteredProjects(
-  allProjects.filter(project => project.data.image && project.data.categories?.includes("marketing")),
-  2
-);
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
-    <h1 class="animate font-semibold text-black dark:text-white text-2xl">
-      Hi, I'm Sola <span class="text-xl">👋🏻 </span> <br>Truth is stranger than fiction
+    <h1 class="animate font-ba font-bold text-black dark:text-white" style="font-size: 7em; text-align: center;">
+      SOLA
     </h1>
-    <ul class="flex flex-wrap gap-2 animate text-sm">
+    <p class="animate font-ba font-bold text-black dark:text-white" style="font-size: 4em; line-height: 1.2; text-align: center;">
+      <Link underline={true} href="/marketing">Marketin</Link><Link underline={false} href="/marketing">g</Link> strategist <br>leveraging <Link underline={true} href="/data">data and ai</Link>
+    </p>
+
+    <ul class="flex flex-wrap gap-2 animate text-lg mt-8 justify-center">
       {SOCIALS.map(SOCIAL => (
-        <li class="flex gap-x-2 text-nowrap">
-          <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
+        <li class="flex gap-x-2 text-nowrap" >
+          <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
             {SOCIAL.NAME}
           </Link>
           {"/"}
         </li>
       ))}
       <li class="line-clamp-1">
-        <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
+        <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
           {SITE.EMAIL}
         </Link>
       </li>
     </ul>
-    
-    <div class="space-y-16">
-      <!-- Introduction Section -->
-       <!-- 
-      <section>
-        <article class="space-y-4">
-          <p class="animate">
-            I come packed with full type safety, a sitemap, an rss feed, markdown 
-            and mdx support (use components in your markdown) through astro integrations.
-            I am styled with tailwind and come preconfigured with light, dark and 
-            system/os theme preferences out of the box.
-          </p>
-        </article>
-      </section> -->
-
-      <!-- Divider -->
-      <hr class="border-t border-gray-200 dark:border-gray-700 mt-12 mb-12" />
-
-      <!-- Featured Projects Section -->
-      <section class="animate space-y-4">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="text-lg text-gray dark:text-white">
-            Featured Projects
-          </h5>
-          <div class="flex items-center gap-1">
-            <a 
-              href="/marketing" 
-              class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2"
-            >
-              Marketing
-            </a>
-            <span class="text-gray-400 dark:text-gray-600">/</span>
-            <a 
-              href="/data" 
-              class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2"
-            >
-              Data & AI
-            </a>
-          </div>
-        </div>
-        
-        <!-- Project Cards Container -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {marketingProjects.map(project => (
-            <div class="w-full">
-              <a 
-                href={`/projects/${project.slug}`} 
-                class="group block p-6 -ml-6 -mr-6 rounded-xl transition-all duration-300"
-              >
-                <div class="space-y-4">
-                  <!-- Image at the top -->
-                  {project.data.image && (
-                    <div class="overflow-hidden rounded-lg">
-                      <img 
-                        src={project.data.image} 
-                        alt={`${project.data.title} preview`}
-                        class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  
-                  <!-- Title and Date -->
-                  <div class="space-y-2">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white transition-colors duration-200 group-hover:text-black dark:group-hover:text-white">
-                      {project.data.title}
-                    </h3>
-                    <time class="text-sm text-gray-500 dark:text-gray-400 font-mono">
-                      {formatDate(project.data.date)}
-                    </time>
-                  </div>
-                  
-                  <!-- Description -->
-                  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
-                    {project.data.description}
-                  </p>
-                </div>
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Recent Projects Section -->
-      <section class="animate space-y-4">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="text-gray text-lg dark:text-white">
-            Recent projects
-          </h5>
-          <div class="flex items-center gap-1 text-sm">
-            <a href="/marketing" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
-              View all Marketing
-            </a>
-            <span class="text-gray-400 dark:text-gray-600">/</span>
-            <a href="/data" class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white">
-              View all Data & AI
-            </a>
-          </div>
-        </div>
-        
-        <ul class="space-y-2 group">
-          {marketingProjects.map(project => (
-            <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
-              <ListItem entry={project} />
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <!-- Connect Section 
-      <section class="animate space-y-4">
-        <h5 class="font-semibold text-black dark:text-white">
-          Let's Connect
-        </h5>
-        <article>
-          <p>
-            If you want to get in touch with me about something or just to say hi,
-            reach out on social media or send me an email.
-          </p>
-        </article>
-        <ul class="flex flex-wrap gap-2">
-          {SOCIALS.map(SOCIAL => (
-            <li class="flex gap-x-2 text-nowrap">
-              <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
-                {SOCIAL.NAME}
-              </Link>
-              {"/"}
-            </li>
-          ))}
-          <li class="line-clamp-1">
-            <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
-              {SITE.EMAIL}
-            </Link>
-          </li>
-        </ul>
-      </section>
-    </div>-->
   </Container>
 </PageLayout>
 

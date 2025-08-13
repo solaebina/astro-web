@@ -4,31 +4,38 @@ import Link from "@components/Link.astro";
 import { SITE } from "@consts";
 ---
 
-<header>
+<header class="py-6">
   <Container>
-    <div class="flex flex-wrap gap-y-2 justify-between">
-      <Link href="/" underline={false}>
-        <div>
-          {SITE.NAME}
-        </div>
-      </Link>
-      <nav class="flex gap-1">
-        <Link href="/projects">
-          projects
+    <nav class="flex items-center justify-between">
+      <!-- Left side - Home -->
+      <div class="flex items-center">
+        <Link href="/" underline={false} class="font-ba text-lg">
+          Home
         </Link>
-        <span>
-          {`/`}
-        </span>
-        <Link href="/blog">
-          blog
+      </div>
+      
+      <!-- Center - Marketing, Data Analytics, Blog -->
+      <div class="flex items-center space-x-8">
+        <Link href="/marketing" underline={false} class="font-ba text-lg">
+          Marketing
         </Link>
-        <span>
-          {`/`}
-        </span>
-        <Link href="/thoughts">
-          thoughts
+        
+        <Link href="/data" underline={false} class="font-ba text-lg">
+          Data & AI
         </Link>
-      </nav>
-    </div>
+        
+        <Link href="/blog" underline={false} class="font-ba text-lg">
+          Blog
+        </Link>
+      </div>
+      
+      <!-- Right side - Thoughts -->
+      <div class="flex items-center">
+        <Link href="/thoughts" underline={false} class="font-ba text-lg">
+          Thoughts
+        </Link>
+      </div>
+    </nav>
   </Container>
 </header>
+

@@ -44,7 +44,7 @@ export const PLAYGROUND: Metadata = {
 
 export const SOCIALS: Socials = [
   { 
-    NAME: "linkedIn",
+    NAME: "linkedin",
     HREF: "https://www.linkedin.com/in/solaebina/"
   },
 ];

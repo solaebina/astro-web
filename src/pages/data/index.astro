@@ -35,33 +35,28 @@ const dataAIProjects = getFilteredProjects(
 <PageLayout title={DATA_AI.TITLE} description={DATA_AI.DESCRIPTION}>
   <Container>
     <div class="space-y-8">
-      <!-- Introduction Section -->
-      <section class="space-y-4">
-        <h1 class="animate font-semibold text-black dark:text-white text-2xl">
-          Hi, I'm Sola <span class="text-xl">👋🏻 </span> <br>Truth is stranger than fiction
-        </h1>
-        <ul class="flex flex-wrap gap-2 animate text-sm">
-          <li class="flex gap-x-2 text-nowrap">
-            <a href="https://www.linkedin.com/in/solaebina/" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-              linkedIn
-            </a>
-            {"/"}
-          </li>
-          <li class="line-clamp-1">
-            <a href="mailto:solaebina@gmail.com" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-              solaebina@gmail.com
-            </a>
-          </li>
-        </ul>
-      </section>
-
-
 
       <!-- Featured Data & AI Projects -->
       <section class="animate space-y-4">
-        <h2 class="text-xl font-semibold text-black dark:text-white">
-          Featured Data & AI Projects
-        </h2>
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold text-black dark:text-white">
+            Featured Data & AI Projects
+          </h2>
+
+          <ul class="flex gap-2 animate text-sm">
+            <li class="flex gap-x-2 text-nowrap">
+              <a href="https://www.linkedin.com/in/solaebina/" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
+                linkedIn
+              </a>
+              {"/"}
+            </li>
+            <li class="line-clamp-1">
+              <a href="mailto:solaebina@gmail.com" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
+                solaebina@gmail.com
+              </a>
+            </li>
+          </ul>
+        </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {dataAIProjects.map(project => (

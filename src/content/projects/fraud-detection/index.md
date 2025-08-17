@@ -3,7 +3,7 @@ title: "ML Pipeline to Predict Insurance Fraud"
 description: "ML pipeline predicting insurance fraud, boosting detection efficiency and enabling significant savings"
 date: "Mar 20 2024"
 categories: ["data-ai"]
-image: "/ml2.jpg"
+image: "/public/frame4.webp"
 ---
 ![image info](./pipeline.avif)
 

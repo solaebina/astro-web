@@ -13,9 +13,10 @@ function formatDate(date: Date): string {
 }
 
 // Helper function to get filtered and sorted projects
-function getFilteredProjects<T extends { data: { draft?: boolean; date: Date } }>(collection: T[], limit: number) {
+function getFilteredProjects<T extends { data: { draft?: boolean; date: Date; featured?: boolean } }>(collection: T[], limit: number) {
   return collection
     .filter((item) => !item.data.draft)
+    .filter((item) => item.data.featured === true)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, limit);
 }
@@ -24,8 +25,13 @@ function getFilteredProjects<T extends { data: { draft?: boolean; date: Date } }
 const allProjects = await getCollection("projects");
 
 // Get marketing projects only
-const marketingProjects = getFilteredProjects(
-  allProjects.filter(project => project.data.categories?.includes("marketing")),
+const marketingProjects = allProjects.filter(project => 
+  project.data.categories?.includes("marketing")
+);
+
+// Get featured marketing projects only
+const featuredMarketingProjects = getFilteredProjects(
+  marketingProjects,
   SITE.NUM_PROJECTS_ON_HOMEPAGE
 );
 ---
@@ -57,7 +63,7 @@ const marketingProjects = getFilteredProjects(
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {marketingProjects.map(project => (
+          {featuredMarketingProjects.map(project => (
             <div class="w-full">
               <a 
                 href={`/projects/${project.slug}`} 

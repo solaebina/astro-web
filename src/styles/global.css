@@ -43,6 +43,20 @@ article {
   @apply prose-headings:text-black prose-headings:dark:text-white;
 }
 
+/* Set max-width for images in project pages */
+article img {
+  @apply max-w-full;
+  max-width: 800px;
+  height: auto;
+}
+
+/* Ensure images are responsive on smaller screens */
+@media (max-width: 768px) {
+  article img {
+    max-width: 100%;
+  }
+}
+
 /* Navigation hover effect */
 nav a {
   position: relative;
@@ -111,30 +125,5 @@ html.scrolled #back-to-top {
   font-style: normal;
   font-weight: 400;
   src: url('/fonts/Ba.woff2') format('woff2');
-}
-
-/* MonaSans fonts */
-@font-face {
-  font-display: swap;
-  font-family: 'MonaSans';
-  font-style: normal;
-  font-weight: 300;
-  src: url('/fonts/MonaSans-Light.woff2') format('woff2');
-}
-
-@font-face {
-  font-display: swap;
-  font-family: 'MonaSans';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/MonaSans-Regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-display: swap;
-  font-family: 'MonaSans';
-  font-style: normal;
-  font-weight: 600;
-  src: url('/fonts/MonaSans-SemiBold.woff2') format('woff2');
 }
 

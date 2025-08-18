@@ -30,8 +30,19 @@ const projects = defineCollection({
     demoURL: z.string().optional(),
     repoURL: z.string().optional(),
     categories: z.array(z.enum(["marketing", "data-ai", "web", "mobile", "other"])).optional(),
-    image: z.string().optional()
+    image: z.string().optional(),
+    featured: z.boolean().optional()
   }),
 });
 
-export const collections = { blog, work, projects };
+const thoughts = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().optional()
+  }),
+});
+
+export const collections = { blog, work, projects, thoughts };

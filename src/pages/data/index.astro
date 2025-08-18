@@ -13,9 +13,10 @@ function formatDate(date: Date): string {
 }
 
 // Helper function to get filtered and sorted projects
-function getFilteredProjects<T extends { data: { draft?: boolean; date: Date } }>(collection: T[], limit: number) {
+function getFilteredProjects<T extends { data: { draft?: boolean; date: Date; featured?: boolean } }>(collection: T[], limit: number) {
   return collection
     .filter((item) => !item.data.draft)
+    .filter((item) => item.data.featured === true)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, limit);
 }
@@ -24,10 +25,13 @@ function getFilteredProjects<T extends { data: { draft?: boolean; date: Date } }
 const allProjects = await getCollection("projects");
 
 // Get data-ai projects only
-const dataAIProjects = getFilteredProjects(
-  allProjects.filter(project => 
-    project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai"))
-  ),
+const dataAIProjects = allProjects.filter(project => 
+  project.data.categories?.some(cat => cat.includes("data") || cat.includes("ai"))
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get featured data-ai projects only
+const featuredDataAIProjects = getFilteredProjects(
+  dataAIProjects,
   SITE.NUM_PROJECTS_ON_HOMEPAGE
 );
 ---
@@ -59,7 +63,7 @@ const dataAIProjects = getFilteredProjects(
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {dataAIProjects.map(project => (
+          {featuredDataAIProjects.map(project => (
             <div class="w-full">
               <a 
                 href={`/projects/${project.slug}`} 

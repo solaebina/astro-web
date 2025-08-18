@@ -1,10 +1,11 @@
 ---
-title: "Training ML Model to Assess Professor"
-description: "Using AI for efficient analysis of Queen's University student feedback, improving courses and faculty."
-date: "Dec 01 2023"
+title: "Machine Learning Model to Assess Professor Sentiment"
+description: "Trained a machine learning model to perform sentiment analysis on student reviews, automating the classification of feedback to help Queen's University improve teaching quality and student satisfaction."
+date: "Apr 13 2025"
 repoURL: "https://github.com/solaebina/Proffesor-Sentiment"
 categories: ["data-ai"]
 image: "./frame3.webp"
+featured: false 
 ---
 
 ## Part 1: Business-Focused Project Overview
@@ -14,153 +15,101 @@ image: "./frame3.webp"
 </a>
 <em style="display: block; text-align: center;">Above is the business brief presentation of this project</em>
 
-## Executive Summary
+## 1. Background and Overview
 
-**Problem Statement**: Queen's University is unable to efficiently analyze a large volume of student reviews to improve teaching quality and faculty support.
+Queen's University, a leading institution in higher education, is dedicated to fostering an exceptional academic environment and strong student satisfaction. The university's administration, however, struggles with the manual and time-consuming process of analyzing a large volume of student reviews, which delays strategic decision-making and hinders their ability to swiftly address feedback.
 
-**Key Finding**: A sentiment analysis model can accurately classify student reviews as positive, negative, or neutral with an overall accuracy of 78%.
+This project addresses this challenge by developing an automated sentiment analysis model to efficiently process and classify thousands of student reviews. The goal is to transform unstructured feedback into actionable, data-driven insights that can improve teaching quality, refine curricula, and enhance the overall student experience.
 
-**Bottom Line Impact**: Automating review analysis saves hundreds of hours of manual work per semester, enabling university administrators to quickly identify actionable trends in teaching quality, leading to improved curriculum and student satisfaction.
+Insights and recommendations are provided on the following key areas:
 
-**Recommendation**: Implement the sentiment analysis model to automatically process course and professor reviews. Use the insights to guide faculty development, refine course curricula, and track student experience, with a human-in-the-loop process for reviews flagged with low confidence.
+* **Sentiment Analysis and Classification:** Evaluating the model's ability to accurately categorize student reviews as positive, negative, or neutral.
+* **Operational Efficiency:** Quantifying the potential time and cost savings from automating the review analysis process.
+* **Teaching Quality and Student Experience:** Identifying key trends and actionable themes within student feedback to guide faculty development and curriculum improvements.
+* **Deployment and Scalability:** Showcasing the project's readiness for a production environment to ensure a lasting solution.
 
-**Key Tools:**
-* **Python**: The primary programming language for all data analysis, manipulation, and machine learning tasks.
-* **Pandas**: A core library for data manipulation and analysis, used for cleaning the raw dataset, handling missing values, and feature engineering.
-* **BlazingText**: A highly efficient, scalable machine learning algorithm from AWS, specifically chosen for its speed in supervised text classification.
-* **Amazon SageMaker**: The cloud platform used to train and deploy the machine learning model, showcasing a complete, production-ready workflow.
-* **Jupyter Notebook**: The environment used to document the entire project, providing a reproducible and transparent record of the analysis, code, and visualizations.
+***
 
----
+## 2. Data Structure Overview
 
-## Visualization 
-*Note: There was a dashboard built on PowerBI but I no longer have access to the tool so the above are screen captures*
-    
+| Column Name           | Data Type | Unique Values | Description                                                                                                       |
+| --------------------- | --------- | ------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Count**             | `int64`   | N/A           | A unique identifier for each review.                                                                              |
+| **original_text**     | `object`  | 4500          | The raw, unedited text of the student review.                                                                     |
+| **cleaned_text**      | `object`  | 4500          | The text of the review after cleaning and normalization.                                                          |
+| **lemmatized**        | `object`  | 4500          | A list of lemmatized words from the cleaned text.                                                                 |
+| **professor_name**    | `object`  | 709           | The name of the professor being reviewed.                                                                         |
+| **school_name**       | `object`  | 334           | The name of the school where the professor teaches.                                                               |
+| **department_name**   | `object`  | 70            | The name of the professor's department.                                                                           |
+| **student_star**      | `float64` | N/A           | The numerical star rating given by the student (range: 1.0 to 5.0). The average rating is approximately **3.05**. |
+| **student_difficult** | `int64`   | N/A           | The perceived difficulty of the class (range: 1 to 5). The average difficulty is approximately **3.30**.          |
+| **sentiment**         | `int64`   | 3             | The sentiment class of the review (1: Positive, 0: Neutral, -1: Negative).                                        |
+| **sentiment_score**   | `float64` | N/A           | The numerical sentiment score (range: -0.969 to 0.9897). The average score is approximately **0.09**.             |
+
+The analysis is based on a real-world dataset of approximately **5,000 student reviews**. This dataset is a diverse collection of unstructured text reviews along with associated numerical ratings, categorical department names, and temporal data like submission dates.
+
+Before analysis, the raw data underwent rigorous quality checks to address common issues found in real-world data. These checks included systematic handling of missing values, normalization of inconsistent text data (e.g., "Dr. Smith" vs. "Professor Smith"), and validation of the dataset's overall structure and integrity. The entire data engineering pipeline, from raw data to a clean, model-ready format, was built using **Python** and the **Pandas** library, ensuring the process is both transparent and reproducible.
+
+***
+
+## 3. Executive Summary
+
+![image info](./sentiment.webp)
+
+A machine learning model was developed to automatically classify student reviews, providing the university with a robust tool to analyze feedback at scale. The key finding is that a sentiment analysis model can classify reviews with an overall accuracy of **78%**. This automation saves hundreds of hours of manual work per semester, allowing administrators to focus on implementing improvements rather than sifting through data.
+
+**Model Performance:**
+* **F1-Score:** The model achieved an F1-score of **82%** for positive reviews and **80%** for negative reviews, demonstrating its strong ability to identify and flag critical feedback.
+* **Classification Weakness:** The model's primary limitation is its performance on neutral reviews, with an F1-score of **44%**, which highlights the need for a human-in-the-loop process for ambiguous feedback.
+* **Projected ROI:** The project is projected to achieve a **28% First-Year ROI** and reach its break-even point in approximately **41.7 months**, based on labor cost savings and development costs.
+
+Key insights derived from the analysis and model performance are detailed in the following sections. A full presentation and dashboard are available for a comprehensive visual overview.
+
+***
+
+## 4. Insights Deep Dive
 
 ![image info](./Frame3.png)
 
-### Model Performance Breakdown 
-This chart visually represents the model's F1-score for each sentiment class, clearly highlighting its strength in identifying positive (82%) and negative (80%) reviews, while also exposing its key weakness in classifying neutral reviews (44%).
+**Model Performance and Detection Capabilities**
 
-![image info](./Frame2.png)
+- The supervised classification model, using the **BlazingText** algorithm, achieved an F1-score of **82%** for positive reviews and **80%** for negative reviews, demonstrating high confidence in identifying both positive and negative sentiment.
+- The model’s classification of neutral reviews yielded a low F1-score of **44%**, highlighting the need for a human-in-the-loop process to prevent potential bias and misinterpretation of nuanced feedback.
+- The model maintains an overall accuracy of **78%**, a significant improvement over manual analysis, which is further validated by a strong **Cohen's Kappa score**.
 
-### Supporting Visuals
-- **Distribution of Text Lengths**: A histogram showing the number of words per review. This helps confirm that the model is trained on a wide range of review lengths, from short comments to detailed feedback.
-- **Keywords for Each Sentiment**: A word cloud or bar chart displaying the most frequent words associated with positive and negative reviews. 
+**Operational Efficiency and Cost Savings**
 
----
+- Implementing this automated solution is projected to lead to a **50% reduction** in the time it takes for staff to process and analyze student review data. This translates to labor cost savings of approximately **$5,000 per two semesters**.
+- Ongoing operational costs are minimal, estimated at **~$81 per month** for AWS SageMaker hosting and monitoring.
+- The project is projected to break even in approximately **41.7 months**, with a first-year ROI of **28%**. This positive financial outlook demonstrates the clear business case for the system's long-term value.
 
-## Business Case for an AI-Powered Analysis
+***
 
-### Market Context
+## 5. Recommendations
 
-In the highly competitive landscape of higher education, student satisfaction is a critical driver of enrollment, funding, and reputation. Proactively addressing student concerns and celebrating teaching excellence are key to attracting and retaining top students and faculty. Manually sifting through thousands of course reviews is inefficient, making a scalable, data-driven solution essential to stay competitive and responsive to evolving student needs and industry trends.
+* **Implement the Sentiment Analysis Model:** Deploy the trained model to a production environment to immediately begin automating the processing of course and professor reviews. This will enable university administrators to transition from manual, time-consuming data analysis to strategic action, directly addressing the core business challenge.
 
-### Core Challenge & Solution
+* **Establish a Human-in-the-Loop Process:** Given the model's difficulty with neutral reviews, create a workflow where a human analyst reviews all feedback flagged with low confidence or classified as neutral. This ensures accuracy for complex cases, mitigates the risk of misinterpretation, and builds stakeholder trust in the system's output.
 
-**The Challenge:** The primary obstacle is the university's inability to efficiently leverage course feedback for improvement. Manual analysis of qualitative comments is a time-consuming process that delays strategic decision-making, impacts faculty development, and can lead to unresolved student issues.
+* **Integrate Findings with Business Operations:** Use the insights generated by the model to directly inform faculty development plans and refine course curricula. By providing faculty with timely, categorized feedback, the university can foster a culture of continuous improvement, leading to a **5% increase** in overall positive sentiment scores over subsequent semesters and a better academic experience for students.
 
-**The Solution:** Implement an AI-powered feedback analysis system using **BlazingText for sentiment analysis** and **LDA for topic discovery**. This solution will automate the classification of feedback, identify core themes, and provide actionable, data-driven insights to leadership and faculty.
+* **Expand to Topic Discovery:** Integrate the sentiment analysis with a topic discovery model (such as LDA) to identify not only the sentiment but also the specific themes driving it (e.g., course pacing, professor communication, or content relevance). This will provide more granular and actionable insights to guide decision-making, leading to a **25% increase** in the number of specific actionable themes identified.
 
-### Stakeholder Impact
+***
 
-* **University Leadership:** Gains a high-level, real-time view of teaching quality across the institution, enabling strategic decisions on resource allocation and faculty support.
+## 6. Technical Deepdive
 
-* **Faculty:** Receives timely, categorized feedback to identify personal teaching strengths and specific areas for professional development, fostering growth and improving the learning environment.
+![image info](./prep.webp)
 
-* **Students:** Benefits from a university that is more responsive to feedback, leading to faster issue resolution, a more adaptive curriculum, and a better overall academic experience.
+- **Model Development Approach:** A robust pipeline was built using systematic preprocessing, including text normalization and lemmatization, followed by a **stratified split** of the 5,000-review dataset into training, validation, and test sets to ensure representative data distribution.
+- **Algorithm Implementation:** **Amazon SageMaker’s BlazingText** was selected for its efficiency and scalability in supervised text classification, chosen over classic machine learning and deep learning models for its optimal balance of performance and speed.
+- **Model Optimization Strategy:** Overfitting was prevented by monitoring model performance on a dedicated validation set during training and tuning hyperparameters to ensure strong generalization to unseen data.
+- **Champion Model Performance:** The model achieved an overall accuracy of **78%**, with strong F1-scores of **82%** for positive reviews and **80%** for negative reviews. A **Cohen's Kappa score** validated the results, though the F1-score for neutral reviews was a lower **44%**.
+- **Model Interpretability and Reliability:** Keyword analysis and word clouds provided insights into the model's logic. The project was deployed to a **real-time Amazon SageMaker endpoint**, showcasing a complete and production-ready solution.
 
-* **Department Chairs:** Can monitor teaching performance within their departments, identify best practices, and address potential issues before they escalate.
+## Caveats and Assumptions
 
-### Risk Assessment
-
-If the university fails to address this problem, it risks:
-
-* **Delayed Response:** Key issues, such as a poorly-received new course or a professor needing support, may go unnoticed for months, harming student satisfaction and retention.
-
-* **Inefficient Resource Allocation:** Funding for professional development or curriculum changes may be allocated based on anecdotal evidence rather than data-driven insights.
-
-* **Lack of Accountability:** Without a systematic way to track sentiment, it becomes difficult to objectively measure the impact of faculty development initiatives or curriculum changes over time.
-
-### Success Metrics
-
-The success of this project will be measured by the following metrics:
-
-* **Increased Efficiency:** A **50% reduction** in the time it takes for staff to process and analyze student review data.
-
-* **Targeted Improvements:** A **25% increase** in the number of identified, specific actionable themes.
-
-* **Student Satisfaction:** A **5% increase** in overall positive sentiment scores in subsequent semesters.
-
-* **Faculty Morale:** A higher percentage of faculty reporting that feedback is helpful and actionable.
-
-### Cost-Benefit Overview
-
-The primary costs involve a one-time development investment followed by ongoing operational costs. The benefits, however, significantly outweigh these costs by improving faculty performance, increasing student retention, and strengthening the university's reputation.
-
-* **Costs:** **One-Time Development Cost:** \~**$14,000** (Labor for Data Scientist, ML Engineer, and Project Manager). **Ongoing Variable Costs:** \~**$81/month** (AWS SageMaker Hosting, Data Storage, Model Monitoring).
-
-* **Benefits:** **Labor Cost Savings:** Potential labor cost savings of \~**$5,000 per 2 semesters** by automating the review process.
-
-* **ROI & Break-Even:** **First-Year ROI:** \~**28%**. **Time to Break-Even:** The project is projected to reach its break-even point in approximately **41.7 months**.
-
----
-## Part 1: Technical Deepdive
-
-This section details the technical approach I took for the Queen's University Sentiment Analysis project, designed to give you a clear view of my skills in data engineering, machine learning, and methodological rigor.
-
----
-
-### Dataset and Problem Complexity
-
-The foundation of this project is a **real-world dataset** of approximately 5,000 student reviews. This wasn't a clean, pre-packaged dataset; it contained all the messiness you'd expect:
-
-- **Missing Data**: Some reviews were incomplete, lacking key information like course IDs or submission dates. I developed a systematic process for handling these missing values, documenting the impact of my choices.
-- **Inconsistencies**: The text data had variations in spelling and inconsistent ways of referring to professors (e.g., "Dr. Smith" vs. "Professor Smith"), which required careful preprocessing.
-- **Multiple Data Types**: The dataset included not just the text reviews but also numerical ratings, categorical department names, and temporal data, all of which I leveraged to build a richer analysis.
-
-I also addressed the **ethical considerations** of this project head-on. The model's purpose is to classify sentiment, not to pass judgment on individuals. For this reason, the analysis explicitly includes a recommendation for a human-in-the-loop process, especially for reviews the model is less confident about, to prevent potential bias and ensure fairness.
-
----
-
-### Advanced Analytical Implementation
-
-My approach involved a robust, end-to-end machine learning pipeline.
-
-#### Data Engineering Pipeline
-I built a complete workflow for taking raw, messy data and transforming it into a clean, model-ready format. This pipeline is fully documented and **reproducible**.
-
-- **Preprocessing**: I applied a series of cleaning steps, including lowercasing, removing URLs and irrelevant symbols, and **lemmatization** to normalize the text data.
-- **Feature Engineering**: I created new features, such as text length, to give the model additional context.
-- **Data Quality Checks**: My code includes automated checks to validate the dataset's structure and log key statistics, ensuring data integrity at every step.
-
-#### Statistical Rigor
-To ensure my results were reliable, I employed several key statistical practices.
-
-- **Train/Validation/Test Split**: I split the dataset into training (70%), validation (15%), and test (15%) sets using **stratified sampling**. This crucial step ensured that each set had a representative distribution of sentiment classes, preventing bias in my final evaluation.
-- **Evaluation Metrics**: I went beyond simple accuracy, using a **confusion matrix**, and calculating **precision, recall, and F1-scores** for each class. This provided a nuanced view of the model's performance, especially considering the potential for class imbalance.
-
-#### Machine Learning
-I chose a supervised classification approach using Amazon SageMaker's **BlazingText** algorithm, a choice that demonstrates my understanding of tool selection and performance tradeoffs.
-
-- **Model Evaluation**: I used a **Cohen's Kappa score** to confirm my model's predictions were significantly better than random chance. The **AUC score** provided further evidence of its ability to distinguish between sentiment classes. While the model performed well on positive and negative reviews, these metrics helped me transparently identify and address its weakness with neutral reviews.
-- **Model Interpretability**: To help stakeholders understand the model's logic, I created visualizations like **word clouds** and performed keyword analysis to show which terms were most associated with each sentiment.
-- **Overfitting Prevention**: I used the validation set to monitor the model during training, tuning hyperparameters to ensure it would **generalize** well to unseen data.
-
----
-
-### Methodological Transparency
-
-I believe in clear and honest communication about my work, which is why I've included a detailed section on my project's methodology.
-
-- **Assumptions and Limitations**: I clearly documented the project's assumptions, such as the accuracy of the original labels. I also explicitly outlined the model's limitations, including its difficulty with neutral reviews and its potential for misinterpreting sarcasm.
-- **Alternative Approaches**: I considered and documented alternative methods, such as using classic machine learning models (e.g., SVM with TF-IDF) or advanced deep learning models (e.g., BERT). I explained my choice of BlazingText based on its balance of **efficiency, scalability, and performance** for this specific problem.
-
----
-
-### Bonus Elements
-
-To demonstrate a comprehensive skill set, I also implemented two key elements:
-
-- **Statistical Significance Testing**: My use of Cohen's Kappa provides a statistically rigorous measure of the model's performance, adding credibility to the results.
-- **Machine Learning Model Deployment**: I took the project from concept to a production-ready state by deploying the trained model to a **real-time Amazon SageMaker endpoint**, showcasing my ability to deliver a complete, functional solution.
+* **Data Labeling:** The analysis assumes that the original sentiment labels in the dataset are accurate. Any mislabeling in the source data would directly impact the model's training and performance metrics.
+* **Sarcasm and Nuance:** The model's performance, particularly on neutral reviews, is limited in its ability to interpret sarcasm, cultural context, or highly nuanced language. The human-in-the-loop recommendation is designed to mitigate this limitation.
+* **Temporal Factors:** The model was trained on historical data. It assumes that future student reviews will follow similar patterns and use similar language. Major shifts in student feedback patterns could affect model accuracy over time.
+* **External Factors:** The analysis does not account for external factors that could influence student satisfaction, such as university-wide policy changes, campus events, or broader societal trends. The metrics provided are based solely on the data available.

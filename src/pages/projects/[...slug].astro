@@ -63,9 +63,14 @@ if (project.data.categories) {
             <span>/</span>
           )}
           {project.data.repoURL && (
-            <Link href={project.data.repoURL} external>
-              Github Repo
-            </Link>
+            <a 
+              href={project.data.repoURL}
+              class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out "
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {project.data.repoURL}
+            </a>
           )}
         </nav>
       )}

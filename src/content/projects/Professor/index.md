@@ -4,7 +4,7 @@ description: "Using AI for efficient analysis of Queen's University student feed
 date: "Dec 01 2023"
 repoURL: "https://github.com/solaebina/Proffesor-Sentiment"
 categories: ["data-ai"]
-image: "./public/frame3.webp"
+image: "/frame3.webp"
 ---
 
 ## Part 1: Business-Focused Project Overview

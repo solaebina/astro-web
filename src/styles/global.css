@@ -113,3 +113,28 @@ html.scrolled #back-to-top {
   src: url('/fonts/Ba.woff2') format('woff2');
 }
 
+/* MonaSans fonts */
+@font-face {
+  font-display: swap;
+  font-family: 'MonaSans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/MonaSans-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'MonaSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/MonaSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'MonaSans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/MonaSans-SemiBold.woff2') format('woff2');
+}
+

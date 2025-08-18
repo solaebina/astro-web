@@ -4,7 +4,7 @@ description: "Leverages K-Means clustering to segment hotel guests based on thei
 date: "Mar 29 2025"
 repoURL: "https://github.com/solaebina/k-mean-hotel-segmentation"
 categories: ["data-ai"]
-image: "./hyper.webp"
+image: "/hyper.webp"
 featured: true
 ---
 

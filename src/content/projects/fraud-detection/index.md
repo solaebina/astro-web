@@ -3,7 +3,7 @@ title: "Machine Learning Pipeline to Predict Insurance Fraud"
 description: "Developed a machine learning pipeline to predict insurance fraud by preparing and analyzing claims data, then training a Random Forest model that achieved a 70% greater fraud detection rate than random sampling, resulting in potential annual savings of $5.9 million."
 date: "Dec 5 2022"
 categories: ["data-ai"]
-image: "./frame4.webp"
+image: "/frame4.webp"
 featured: true
 ---
 

@@ -38,16 +38,16 @@ const featuredMarketingProjects = getFilteredProjects(
 
 <PageLayout title={MARKETING.TITLE} description={MARKETING.DESCRIPTION}>
   <Container>
-    <div class="space-y-8">
+    <div class="space-y-6 sm:space-y-8">
       
       <!-- Featured Marketing Projects -->
       <section class="animate space-y-4">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
           <h2 class="text-xl font-semibold text-black dark:text-white">
             Featured Marketing Projects
           </h2>
 
-          <ul class="flex gap-2 animate text-sm">
+          <ul class="flex flex-wrap gap-2 animate text-sm">
             <li class="flex gap-x-2 text-nowrap">
               <a href="https://www.linkedin.com/in/solaebina/" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
                 linkedIn
@@ -62,12 +62,12 @@ const featuredMarketingProjects = getFilteredProjects(
           </ul>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {featuredMarketingProjects.map(project => (
             <div class="w-full">
               <a 
                 href={`/projects/${project.slug}`} 
-                class="group block p-6 -ml-6 -mr-6 rounded-xl transition-all duration-300"
+                class="group block p-4 sm:p-6 rounded-xl transition-all duration-300"
               >
                 <div class="space-y-4">
                   <!-- Image at the top -->
@@ -92,7 +92,7 @@ const featuredMarketingProjects = getFilteredProjects(
                   </div>
                   
                   <!-- Description -->
-                  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
+                  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                     {project.data.description}
                   </p>
                 </div>

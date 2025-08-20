@@ -14,29 +14,31 @@ function formatDate(date: Date): string {
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-  <Container>
-    <h1 class="animate font-ba font-bold text-black dark:text-white" style="font-size: 7em; text-align: center;">
-      SOLA
-    </h1>
-    <p class="animate font-ba font-bold text-black dark:text-white" style="font-size: 4em; line-height: 1.2; text-align: center;">
-      <Link underline={true} href="/work-in-progress">Marketin</Link><Link underline={false} href="/work-in-progress">g</Link> strategist <br>leveraging <Link underline={true} href="/data">data and ai</Link>
-    </p>
+  <Container class="flex flex-col items-center justify-center min-h-screen">
+    <div class="text-center">
+      <h1 class="animate font-ba font-bold text-black dark:text-white text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight">
+        SOLA
+      </h1>
+      <p class="animate font-ba font-bold text-black dark:text-white text-center text-xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl 3xl:text-9xl leading-tight mt-2 sm:mt-4 md:mt-6">
+        <Link underline={true} href="/work-in-progress" underlineOffset="after:bottom-0">marketin</Link><Link underline={false} href="/work-in-progress">g</Link> strategist <br class="hidden sm:block">leveraging <Link underline={true} href="/data" underlineOffset="after:bottom-0">data and ai</Link>
+      </p>
 
-    <ul class="flex flex-wrap gap-2 animate text-lg mt-8 justify-center">
-      {SOCIALS.map(SOCIAL => (
-        <li class="flex gap-x-2 text-nowrap" >
-          <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
-            {SOCIAL.NAME}
+      <ul class="flex flex-wrap gap-2 animate text-sm sm:text-base md:text-lg mt-6 sm:mt-8 justify-center">
+        {SOCIALS.map(SOCIAL => (
+          <li class="flex gap-x-2 text-nowrap" >
+            <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
+              {SOCIAL.NAME}
+            </Link>
+            {"/"}
+          </li>
+        ))}
+        <li class="line-clamp-1">
+          <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
+            {SITE.EMAIL}
           </Link>
-          {"/"}
         </li>
-      ))}
-      <li class="line-clamp-1">
-        <Link underline={false} underlineOffset="after:bottom-1" underlineHeight="after:h-px" href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
-          {SITE.EMAIL}
-        </Link>
-      </li>
-    </ul>
+      </ul>
+    </div>
   </Container>
 </PageLayout>
 

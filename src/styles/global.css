@@ -4,9 +4,9 @@
 
 :root {
   --header-height: 72px; /* 48px (py-6) + 24px for content */
-  --header-height-mobile: 56px; /* 32px (py-6) + 24px for content */
   --main-top-padding: 80px; /* pt-20 */
   --main-bottom-padding: 80px; /* pb-20 */
+  --vw: 0.026vw; /* Custom viewport width variable */
 }
 
 html {
@@ -38,10 +38,6 @@ header {
 
 main {
   @apply flex-1 pt-20 pb-20;
-  /* Add extra bottom padding for mobile navigation */
-  @apply pb-20 md:pb-32;
-  /* Reduce top padding on mobile since header is hidden */
-  @apply pt-8 md:pt-24;
   /* Use CSS variables for more precise control */
   padding-top: calc(var(--header-height) + 1rem);
   padding-bottom: var(--main-bottom-padding);
@@ -141,79 +137,22 @@ html.scrolled #back-to-top {
   src: url('/fonts/Ba.woff2') format('woff2');
 }
 
-/* Mobile Navigation Enhancements */
-@media (max-width: 768px) {
-  /* Ensure content doesn't get hidden behind mobile nav */
-  body {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  
-  /* Smooth scrolling for mobile */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Ensure proper touch targets for mobile navigation */
-  .mobile-nav a {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Active state for current page */
-  .mobile-nav a[aria-current="page"] {
-    @apply text-white;
-  }
-  
-  .mobile-nav a[aria-current="page"] span {
-    @apply text-white;
-  }
-  
-  .mobile-nav a[aria-current="page"]::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    background-color: currentColor;
-    border-radius: 50%;
-  }
-  
-  /* Hover and active states for better mobile UX */
-  .mobile-nav a:active {
-    @apply text-white scale-95;
-    transition: all 0.1s ease;
-  }
-  
-  /* Mobile-specific content adjustments */
-  .container {
-    overflow-x: hidden;
-  }
-  
-  /* Ensure text doesn't overflow on mobile */
-  .line-clamp-1 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  /* Better mobile spacing */
-  .space-y-6 > * + * {
-    margin-top: 1.5rem;
-  }
-  
-  .space-y-4 > * + * {
-    margin-top: 1rem;
-  }
+/* WorkSans font */
+@font-face {
+  font-display: swap;
+  font-family: 'WorkSans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/WorkSans-SemiBold.woff2') format('woff2');
 }
 
-/* Ensure mobile nav is above all other content */
-.mobile-nav {
-  z-index: 9999;
+/* Lc font */
+@font-face {
+  font-display: swap;
+  font-family: 'Lc';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/LibreCaslonText-Regular.woff2') format('woff2');
 }
 
 /* Perfect centering that accounts for the actual layout */
@@ -226,14 +165,7 @@ html.scrolled #back-to-top {
   padding-top: var(--header-height);
 }
 
-.perfect-center-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin-top: calc(-1 * var(--header-height-mobile));
-  padding-top: var(--header-height-mobile);
-}
+
 
 /* Alternative: Use viewport height with header offset */
 .center-viewport {
@@ -243,12 +175,7 @@ html.scrolled #back-to-top {
   height: calc(100vh - var(--header-height));
 }
 
-.center-viewport-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - var(--header-height-mobile));
-}
+
 
 /* Simple, reliable centering */
 .center-content {
@@ -258,12 +185,7 @@ html.scrolled #back-to-top {
   min-height: calc(100vh - 120px); /* Approximate header + padding */
 }
 
-.center-content-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 100px); /* Approximate mobile header + padding */
-}
+
 
 /* Most reliable: Use the main element's available space */
 .center-in-main {
@@ -282,13 +204,7 @@ html.scrolled #back-to-top {
   justify-content: center;
 }
 
-.center-container-mobile {
-  height: 100%;
-  min-height: calc(100vh - 100px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 /* Alternative: Use flexbox on the main element itself */
 .main-center {
@@ -298,3 +214,15 @@ html.scrolled #back-to-top {
   min-height: 100%;
 }
 
+/* Custom font size for SOLA using viewport width calculation */
+.sola-text {
+  font-size: calc(var(--vw) * 340);
+  line-height: calc(var(--vw) * 330);
+  letter-spacing: -.025em;
+}
+
+/* Custom font size for SOLA using viewport width calculation */
+.title-text {
+  font-size: calc(var(--vw) * 170);
+  line-height: calc(var(--vw) * 170);
+}

@@ -2,7 +2,6 @@
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import MobileNav from "@components/MobileNav.astro";
 import { SITE } from "@consts";
 
 type Props = {
@@ -20,10 +19,9 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <Header />
-    <main class="flex items-start justify-center pt-16 sm:pt-24 md:pt-32">
+    <main class="flex items-start justify-center md:pt-32">
       <slot />
     </main>
     <Footer />
-    <MobileNav />
   </body>
 </html>

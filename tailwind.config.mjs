@@ -12,6 +12,8 @@ export default {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         serif: ["Lora", ...defaultTheme.fontFamily.serif],
         ba: ["Ba", "sans-serif"],
+        Lc: ["Lc", "serif"],
+        worksans: ["WorkSans", "sans-serif"],
       },
     },
   },

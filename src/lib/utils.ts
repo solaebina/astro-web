@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: Date) {
+export function formatDate(date: Date): string {
   return Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "2-digit",
@@ -13,22 +13,21 @@ export function formatDate(date: Date) {
   }).format(date);
 }
 
-export function readingTime(html: string) {
+export function readingTime(html: string): string {
   const textOnly = html.replace(/<[^>]+>/g, "");
   const wordCount = textOnly.split(/\s+/).length;
-  const readingTimeMinutes = ((wordCount / 200) + 1).toFixed();
+  const readingTimeMinutes = Math.ceil(wordCount / 200);
   return `${readingTimeMinutes} min read`;
 }
 
 export function dateRange(startDate: Date, endDate?: Date | string): string {
   const startMonth = startDate.toLocaleString("default", { month: "short" });
   const startYear = startDate.getFullYear().toString();
-  let endMonth;
-  let endYear;
+  let endMonth = "";
+  let endYear = "";
 
   if (endDate) {
     if (typeof endDate === "string") {
-      endMonth = "";
       endYear = endDate;
     } else {
       endMonth = endDate.toLocaleString("default", { month: "short" });

@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --header-height: 72px; /* 48px (py-6) + 24px for content */
-  --main-top-padding: 80px; /* pt-20 */
-  --main-bottom-padding: 80px; /* pb-20 */
-  --vw: 0.026vw; /* Custom viewport width variable */
+  --header-height: 72px;
+  --main-top-padding: 80px;
+  --main-bottom-padding: 80px;
+  --vw: 0.026vw;
 }
 
+/* Base HTML and Body Styles */
 html {
   overflow-y: scroll;
   color-scheme: light;
@@ -30,6 +31,7 @@ body {
   @apply text-black/50 dark:text-white/75;
 }
 
+/* Layout Components */
 header {
   @apply relative top-0 left-0 right-0 z-50 py-5;
   @apply bg-white/75 dark:bg-stone-900/25;
@@ -38,7 +40,6 @@ header {
 
 main {
   @apply flex-1 pt-20 pb-20;
-  /* Use CSS variables for more precise control */
   padding-top: calc(var(--header-height) + 1rem);
   padding-bottom: var(--main-bottom-padding);
 }
@@ -47,27 +48,26 @@ footer {
   @apply py-5 text-sm;
 }
 
+/* Typography and Content */
 article {
   @apply max-w-full prose dark:prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold prose-p:font-serif prose-li:font-serif prose-ul:font-serif prose-ol:font-serif;
   @apply prose-headings:text-black prose-headings:dark:text-white;
 }
 
-/* Set max-width for images in project pages */
 article img {
   @apply max-w-full;
   max-width: 800px;
   height: auto;
 }
 
-/* Ensure images are responsive on smaller screens */
 @media (max-width: 768px) {
   article img {
     max-width: 100%;
   }
 }
 
-/* Navigation hover effect */
+/* Navigation Styles */
 nav a {
   position: relative;
 }
@@ -90,18 +90,21 @@ nav a:hover::after {
   transform: scaleX(1);
 }
 
+/* Link Styles */
 @layer utilities {
   article a {
     @apply font-sans text-current underline underline-offset-1 decoration-1;
     @apply decoration-black/15 dark:decoration-white/30;
     @apply transition-colors duration-300 ease-in-out;
   }
+  
   article a:hover {
     @apply text-black dark:text-white;
     @apply decoration-black/25 dark:decoration-white/50;
   }
 }
 
+/* Animation Classes */
 .animate {
   @apply opacity-0 translate-y-3;
   @apply transition-all duration-700 ease-out;
@@ -111,6 +114,7 @@ nav a:hover::after {
   @apply opacity-100 translate-y-0;
 }
 
+/* Back to Top Button */
 html #back-to-top {
   @apply opacity-0 pointer-events-none;
 }
@@ -119,16 +123,15 @@ html.scrolled #back-to-top {
   @apply opacity-100 pointer-events-auto;
 }
 
-/* libre-caslon-text-regular - latin */
+/* Font Declarations */
 @font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-display: swap;
   font-family: 'Libre Caslon Text';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/libre.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url('../fonts/libre.woff2') format('woff2');
 }
 
-/* ba font */
 @font-face {
   font-display: swap;
   font-family: 'Ba';
@@ -137,25 +140,15 @@ html.scrolled #back-to-top {
   src: url('/fonts/Ba.woff2') format('woff2');
 }
 
-/* WorkSans font */
 @font-face {
   font-display: swap;
-  font-family: 'WorkSans';
-  font-style: normal;
-  font-weight: 600;
-  src: url('/fonts/WorkSans-SemiBold.woff2') format('woff2');
-}
-
-/* Lc font */
-@font-face {
-  font-display: swap;
-  font-family: 'Lc';
+  font-family: 'lc';
   font-style: normal;
   font-weight: 400;
   src: url('/fonts/LibreCaslonText-Regular.woff2') format('woff2');
 }
 
-/* Perfect centering that accounts for the actual layout */
+/* Centering Utilities */
 .perfect-center {
   display: flex;
   align-items: center;
@@ -165,9 +158,6 @@ html.scrolled #back-to-top {
   padding-top: var(--header-height);
 }
 
-
-
-/* Alternative: Use viewport height with header offset */
 .center-viewport {
   display: flex;
   align-items: center;
@@ -175,19 +165,13 @@ html.scrolled #back-to-top {
   height: calc(100vh - var(--header-height));
 }
 
-
-
-/* Simple, reliable centering */
 .center-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 120px); /* Approximate header + padding */
+  min-height: calc(100vh - 120px);
 }
 
-
-
-/* Most reliable: Use the main element's available space */
 .center-in-main {
   display: flex;
   align-items: center;
@@ -195,7 +179,6 @@ html.scrolled #back-to-top {
   min-height: 100%;
 }
 
-/* Fix: Make container take full height and center content */
 .center-container {
   height: 100%;
   min-height: calc(100vh - 120px);
@@ -204,9 +187,6 @@ html.scrolled #back-to-top {
   justify-content: center;
 }
 
-
-
-/* Alternative: Use flexbox on the main element itself */
 .main-center {
   display: flex;
   align-items: center;
@@ -214,15 +194,21 @@ html.scrolled #back-to-top {
   min-height: 100%;
 }
 
-/* Custom font size for SOLA using viewport width calculation */
+/* Custom Typography */
 .sola-text {
   font-size: calc(var(--vw) * 340);
   line-height: calc(var(--vw) * 330);
   letter-spacing: -.025em;
 }
 
-/* Custom font size for SOLA using viewport width calculation */
 .title-text {
   font-size: calc(var(--vw) * 170);
   line-height: calc(var(--vw) * 170);
+}
+
+@media (max-width: 768px) {
+  .title-text {
+    font-size: calc(var(--vw) * 245);
+    line-height: calc(var(--vw) * 245);
+  }
 }

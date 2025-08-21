@@ -14,20 +14,20 @@ type Acc = {
 }
 
 const posts = data.reduce((acc: Acc, post) => {
-    const year = post.data.date.getFullYear().toString();
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(post);
-    return acc;
-  }, {});
+  const year = post.data.date.getFullYear().toString();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(post);
+  return acc;
+}, {});
 
 const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a)); 
 ---
 
 <PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
   <Container>
-    <div class="space-y-10">
+    <div class="font-ba space-y-10">
       <div class="animate text-xl font-semibold text-black dark:text-white">
         Blog
       </div>
@@ -39,13 +39,11 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
             </div>
             <div>
               <ul class="space-y-2 group">
-                {
-                  posts[year].map((post) => (
-                    <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
-                      <ListItem entry={post}/>
-                    </li>
-                  ))
-                }
+                {posts[year].map((post) => (
+                  <li class="peer-hover:bg-gray-50 dark:peer-hover:bg-gray-900/30 hover:bg-transparent transition-all duration-200">
+                    <ListItem entry={post}/>
+                  </li>
+                ))}
               </ul>
             </div>
           </section>

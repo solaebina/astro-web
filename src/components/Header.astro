@@ -1,71 +1,30 @@
 ---
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
-import { SITE } from "@consts";
 ---
 
 <header class="py-6">
   <Container>
     <nav class="flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-between gap-4 sm:gap-0">
-      <!-- Mobile: First row - Home, Marketing, Data & AI -->
+      <!-- Mobile Navigation -->
       <div class="flex flex-row items-center gap-4 sm:hidden">
-        <Link href="/" underline={false} class="font-ba text-lg">
-          Home
-        </Link>
-        
-        <Link href="/work-in-progress" underline={false} class="font-ba text-lg">
-          Marketing
-        </Link>
-        
-        <Link href="/data" underline={false} class="font-ba text-lg">
-          Data & AI
-        </Link>
+        <Link href="/" underline={false} class="font-ba text-lg">Home</Link>
+        <Link href="/work-in-progress" underline={false} class="font-ba text-lg">Marketing</Link>
+        <Link href="/data" underline={false} class="font-ba text-lg">Data & AI</Link>
       </div>
       
-      <!-- Mobile: Second row - Blog, Thoughts -->
       <div class="flex flex-row items-center gap-4 sm:hidden">
-        <Link href="/blog" underline={false} class="font-ba text-lg">
-          Blog
-        </Link>
-        
-        <Link href="/thoughts" underline={false} class="font-ba text-lg">
-          Thoughts
-        </Link>
+        <Link href="/blog" underline={false} class="font-ba text-lg">Blog</Link>
+        <Link href="/thoughts" underline={false} class="font-ba text-lg">Thoughts</Link>
       </div>
       
-      <!-- Desktop: Home -->
-      <div class="hidden sm:flex items-center">
-        <Link href="/" underline={false} class="font-ba text-lg">
-          Home
-        </Link>
-      </div>
-      
-      <!-- Desktop: Marketing -->
-      <div class="hidden sm:flex items-center">
-        <Link href="/work-in-progress" underline={false} class="font-ba text-lg">
-          Marketing
-        </Link>
-      </div>
-      
-      <!-- Desktop: Data & AI -->
-      <div class="hidden sm:flex items-center">
-        <Link href="/data" underline={false} class="font-ba text-lg">
-          Data & AI
-        </Link>
-      </div>
-      
-      <!-- Desktop: Blog -->
-      <div class="hidden sm:flex items-center">
-        <Link href="/blog" underline={false} class="font-ba text-lg">
-          Blog
-        </Link>
-      </div>
-      
-      <!-- Desktop: Thoughts -->
-      <div class="hidden sm:flex items-center">
-        <Link href="/thoughts" underline={false} class="font-ba text-lg">
-          Thoughts
-        </Link>
+      <!-- Desktop Navigation -->
+      <div class="hidden sm:flex items-center gap-8">
+        <Link href="/" underline={false} class="font-ba text-lg">Home</Link>
+        <Link href="/work-in-progress" underline={false} class="font-ba text-lg">Marketing</Link>
+        <Link href="/data" underline={false} class="font-ba text-lg">Data & AI</Link>
+        <Link href="/blog" underline={false} class="font-ba text-lg">Blog</Link>
+        <Link href="/thoughts" underline={false} class="font-ba text-lg">Thoughts</Link>
       </div>
     </nav>
   </Container>

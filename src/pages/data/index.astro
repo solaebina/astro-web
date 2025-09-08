@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ListItem from "@components/ListItem.astro";
+import Link from "@components/Link.astro";
 import { SITE, DATA_AI } from "@consts";
 
 // Helper function to format date
@@ -47,17 +48,10 @@ const featuredDataAIProjects = getFilteredProjects(
             Featured Data & AI Projects
           </h2>
 
-          <ul class="font-lc flex flex-wrap gap-2 animate text-sm">
-            <li class="flex gap-x-2 text-nowrap">
-              <a href="https://www.linkedin.com/in/solaebina/" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-                linkedIn
-              </a>
-              {"/"}
-            </li>
-            <li class="line-clamp-1">
-              <a href="mailto:solaebina@gmail.com" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-                solaebina@gmail.com
-              </a>
+          <ul class="font-lc flex flex-wrap animate text-base">
+            <li class="flex gap-x-6 text-nowrap">
+              <Link underline={false} href="https://www.linkedin.com/in/solaebina/" external={true}>linkedin</Link>
+              <Link underline={false} href="mailto:mail@solaebina.me" external={true}>mail</Link>
             </li>
           </ul>
         </div>

@@ -8,16 +8,14 @@ import { SITE, HOME, SOCIALS } from "@consts";
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container class="flex flex-col items-center justify-center min-h-screen">
     <div class="text-center">
-      <h1 class="animate font-ba font-bold text-black dark:text-white text-center leading-tight sola-text">
-        Sola
-      </h1>
-      <p class="animate font-Lc text-black dark:text-white text-center title-text leading-tight mt-2 sm:mt-4 md:mt-6">
+      <p class="animate font-Lc text-black dark:text-white text-left title-text mt-2 sm:mt-4 md:mt-6">
+        Sola Ebina ~ <br>
         <Link underline={true} href="/work-in-progress" underlineOffset="after:bottom-0">marketin</Link><Link underline={false} href="/work-in-progress">g</Link> strategist 
         <br class="hidden sm:block">leveraging 
         <Link underline={true} href="/data" underlineOffset="after:bottom-0">data and ai</Link>
       </p>  
 
-      <ul class="flex flex-wrap gap-2 animate text-sm sm:text-base md:text-lg mt-6 sm:mt-8 justify-center">
+      <ul class="flex flex-wrap gap-2 animate text-sm sm:text-base md:text-lg mt-6 sm:mt-8 ">
         {SOCIALS.map(SOCIAL => (
           <li class="flex gap-x-2 text-nowrap">
             <Link 

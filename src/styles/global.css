@@ -27,15 +27,13 @@ body {
 body {
   @apply font-sans antialiased;
   @apply flex flex-col;
-  @apply bg-white dark:bg-stone-900;
+  @apply bg-[#FCFBF7] dark:bg-stone-900;
   @apply text-black/50 dark:text-white/75;
 }
 
 /* Layout Components */
 header {
   @apply relative top-0 left-0 right-0 z-50 py-5;
-  @apply bg-white/75 dark:bg-stone-900/25;
-  @apply backdrop-blur-sm saturate-200;
 }
 
 main {
@@ -148,6 +146,14 @@ html.scrolled #back-to-top {
   src: url('/fonts/LibreCaslonText-Regular.woff2') format('woff2');
 }
 
+@font-face {
+  font-display: swap;
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Geist-Regular.woff2') format('woff2');
+}
+
 /* Centering Utilities */
 .perfect-center {
   display: flex;
@@ -203,12 +209,12 @@ html.scrolled #back-to-top {
 
 .title-text {
   font-size: calc(var(--vw) * 170);
-  line-height: calc(var(--vw) * 170);
+  line-height: calc(var(--vw) * 200);
 }
 
 @media (max-width: 768px) {
   .title-text {
     font-size: calc(var(--vw) * 245);
-    line-height: calc(var(--vw) * 245);
+    line-height: calc(var(--vw) * 280);
   }
 }

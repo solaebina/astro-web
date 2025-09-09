@@ -18,10 +18,31 @@ const { title, description } = Astro.props;
     <Head title={`${title} | ${SITE.NAME}`} description={description} />
   </head>
   <body>
+    <div class="vertical-line left"></div>
+    <div class="vertical-line right"></div>
     <Header />
-    <main class="flex items-start justify-center md:pt-32">
+    <main class="flex items-start justify-center md:pt-30">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+
+<style>
+  .vertical-line {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: grey;
+    z-index: 9999;
+  }
+
+  .vertical-line.left {
+    left: calc(50% - 512px);
+  }
+
+  .vertical-line.right {
+    right: calc(50% - 512px);
+  }
+</style>

@@ -4,6 +4,8 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ListItem from "@components/ListItem.astro";
 import { SITE, MARKETING } from "@consts";
+import Link from "@components/Link.astro";
+
 
 // Helper function to format date
 function formatDate(date: Date): string {
@@ -39,27 +41,16 @@ const featuredMarketingProjects = getFilteredProjects(
 <PageLayout title={MARKETING.TITLE} description={MARKETING.DESCRIPTION}>
   <Container>
     <div class="space-y-6 sm:space-y-8">
-      
+      <div>
+        <p class="animate font-Ba text-black dark:text-white text-left title-text mt-2 sm:mt-4 md:mt-6"> Marketing - WIP</p>
+        <hr class="mt-2 dotted-line animate" />
+      </div>
       <!-- Featured Marketing Projects -->
-      <section class="animate space-y-4">
+      <section class="animate">
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
           <h2 class="text-xl font-semibold text-black dark:text-white">
-            Featured Marketing Projects
+            Featured Projects
           </h2>
-
-          <ul class="flex flex-wrap gap-2 animate text-sm">
-            <li class="flex gap-x-2 text-nowrap">
-              <a href="https://www.linkedin.com/in/solaebina/" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-                linkedIn
-              </a>
-              {"/"}
-            </li>
-            <li class="line-clamp-1">
-              <a href="mailto:solaebina@gmail.com" class="text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2">
-                solaebina@gmail.com
-              </a>
-            </li>
-          </ul>
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -105,7 +96,7 @@ const featuredMarketingProjects = getFilteredProjects(
       <!-- All Marketing Projects List -->
       <section class="animate space-y-4">
         <h2 class="text-xl font-semibold text-black dark:text-white">
-          All Marketing Projects
+          All Projects
         </h2>
         
         <ul class="space-y-2 group">

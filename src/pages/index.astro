@@ -8,43 +8,11 @@ import { SITE, HOME, SOCIALS } from "@consts";
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container class="flex flex-col items-center justify-center min-h-screen">
     <div class="text-center">
-      <p class="animate font-Lc text-black dark:text-white text-left title-text mt-2 sm:mt-4 md:mt-6">
-        Sola Ebina ~ <br>
-        <Link underline={true} href="/work-in-progress" underlineOffset="after:bottom-0">marketin</Link><Link underline={false} href="/work-in-progress">g</Link> strategist 
-        <br class="hidden sm:block">leveraging 
-        <Link underline={true} href="/data" underlineOffset="after:bottom-0">data and ai</Link>
+      <p class="animate font-Lc text-black dark:text-white text-left title-text mt-2 sm:mt-4 md:mt-6 overflow-visible">
+        Sola Ebina <br>        
+        <span class="no-space-flex"> <Link href="/marketing" underline={true}>marketin</Link><Link href="/marketing" underline={false}>g</Link>&nbsp;strategist</span>
+      leveraging <Link underline={true} href="/data" >data and ai</Link>
       </p>  
-
-      <ul class="flex flex-wrap gap-2 animate text-sm sm:text-base md:text-lg mt-6 sm:mt-8 ">
-        {SOCIALS.map(SOCIAL => (
-          <li class="flex gap-x-2 text-nowrap">
-            <Link 
-              underline={false} 
-              underlineOffset="after:bottom-1" 
-              underlineHeight="after:h-px" 
-              href={SOCIAL.HREF} 
-              external 
-              aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-            >
-              {SOCIAL.NAME}
-            </Link>
-            {"/"}
-          </li>
-        ))}
-        <li class="line-clamp-1">
-          <Link 
-            underline={false} 
-            underlineOffset="after:bottom-1" 
-            underlineHeight="after:h-px" 
-            href={`mailto:${SITE.EMAIL}`} 
-            aria-label={`Email ${SITE.NAME}`}
-          >
-            {SITE.EMAIL}
-          </Link>
-        </li>
-      </ul>
     </div>
   </Container>
 </PageLayout>
-
-

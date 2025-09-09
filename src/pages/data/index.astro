@@ -40,22 +40,15 @@ const featuredDataAIProjects = getFilteredProjects(
 <PageLayout title={DATA_AI.TITLE} description={DATA_AI.DESCRIPTION}>
   <Container>
     <div class="space-y-6 sm:space-y-8">
-
+      <div>
+        <p class="animate font-Ba text-black dark:text-white text-left title-text mt-2 sm:mt-4 md:mt-6"> Data & AI</p>
+        <hr class="mt-2 dotted-line animate" />
+      </div>
       <!-- Featured Data & AI Projects -->
       <section class="animate space-y-4">
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
-          <h2 class="font-ba text-xl font-semibold text-black dark:text-white">
-            Featured Data & AI Projects
-          </h2>
-
-          <ul class="font-lc flex flex-wrap animate text-base">
-            <li class="flex gap-x-6 text-nowrap">
-              <Link underline={false} href="https://www.linkedin.com/in/solaebina/" external={true}>linkedin</Link>
-              <Link underline={false} href="mailto:mail@solaebina.me" external={true}>mail</Link>
-            </li>
-          </ul>
-        </div>
-        
+        <h2 class="font-ba text-xl font-semibold text-black dark:text-white">
+          Featured Projects
+        </h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {featuredDataAIProjects.map(project => (
             <div class="w-full">
@@ -99,7 +92,7 @@ const featuredDataAIProjects = getFilteredProjects(
       <!-- All Data & AI Projects List -->
       <section class="animate space-y-4">
         <h2 class="text-xl font-semibold text-black dark:text-white">
-          All Data & AI Projects
+          All Projects
         </h2>
         
         <ul class="space-y-2 group">

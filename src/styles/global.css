@@ -209,7 +209,7 @@ html.scrolled #back-to-top {
 }
 
 .title-text {
-  font-size: clamp(1.9rem, 5.5vw, 3.75rem);
+  font-size: clamp(2.2rem, 5.5vw, 3.75rem);
   line-height: clamp(2.8rem, 8vw, 4.5rem);
 }
 
